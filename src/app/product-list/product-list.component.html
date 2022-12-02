@@ -1,0 +1,31 @@
+<h1>Articulos</h1>
+<table class="table text-center h-100 p-5 text-bg-dark rounded-3">
+    <thead>
+        <tr>
+            <th>Imagen</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Precio</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr [ngClass]="{'clearance': product.clearance}" *ngFor="let product of products">
+            <td><img width="150" class="img-thumbnail" [src]="product.image" [alt]="product.brand"></td>
+            <td>{{product.brand}}</td>
+            <td>{{product.model}}</td>
+            <td>{{product.price | currency}}</td>
+            <td> <span class="badge text-bg-warning" *ngIf="product.stock == 0">Sin Stock</span></td>
+            <td>
+                <app-input-int [(quantity)]="product.quantity" [max]="product.stock" *ngIf="product.stock"></app-input-int>
+            </td>
+            <td>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-outline-light btn-sm"  *ngIf="product.stock" (click)="addToCart(product) ">Comprar</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
